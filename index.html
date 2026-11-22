@@ -24,7 +24,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Titillium+Web:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js')</script>
 
@@ -49,6 +49,15 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <div class="lap" aria-hidden="true"><span class="lap__bar"></span></div>
+  <aside class="circuit" aria-hidden="true">
+    <svg viewBox="0 0 200 120">
+      <path class="circuit__track" d="M34 92 L124 92 C150 92 160 86 166 70 L176 42 C180 28 170 18 156 21 L122 29 C109 32 101 26 99 16 C97 7 86 4 77 9 L42 29 C28 37 20 47 20 61 L20 80 C20 88 25 92 34 92 Z" />
+      <path class="circuit__done" d="M34 92 L124 92 C150 92 160 86 166 70 L176 42 C180 28 170 18 156 21 L122 29 C109 32 101 26 99 16 C97 7 86 4 77 9 L42 29 C28 37 20 47 20 61 L20 80 C20 88 25 92 34 92 Z" />
+      <line class="circuit__start" x1="34" y1="85" x2="34" y2="99" />
+      <circle class="circuit__car" cx="34" cy="92" r="4.5" />
+    </svg>
+    <p class="circuit__meta"><span class="circuit__lap">Lap 1/6</span><span class="circuit__sec">Start</span></p>
+  </aside>
 
   <!-- ============ NAV ============ -->
   <header class="nav" id="top">
@@ -92,8 +101,10 @@
       <div class="container hero__grid">
         <div class="hero__copy">
           <div class="start" aria-hidden="true">
-            <div class="lights"><i></i><i></i><i></i><i></i><i></i></div>
-            <span class="start__text">Portfolio · 2026</span>
+            <div class="gantry">
+              <span class="pod"><i></i><i></i></span><span class="pod"><i></i><i></i></span><span class="pod"><i></i><i></i></span><span class="pod"><i></i><i></i></span><span class="pod"><i></i><i></i></span>
+            </div>
+            <p class="start__text">Portfolio · 2026</p>
           </div>
 
           <h1 class="hero__name">
@@ -104,7 +115,7 @@
           <p class="hero__lede">
             I build explainable ML and multimodal LLM systems where
             <strong>models gather evidence, code makes the call, and people approve what matters.</strong>
-            From notebook to a deployed, tested product.
+            I’m at home in the chaos before a problem is solved, and every failure becomes data for the next lap.
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#work">View selected work
@@ -124,7 +135,7 @@
 
         <aside class="tower" aria-label="Key results">
           <div class="tower__head">
-            <span>Timing</span>
+            <span>Live timing</span>
             <span class="tower__live"><i></i>Live</span>
           </div>
           <ol class="tower__rows">
@@ -163,8 +174,8 @@
     <section class="section" id="about">
       <div class="container">
         <header class="sec-head" data-reveal>
-          <p class="sec-label"><span>01</span>About</p>
-          <h2>Between theory <em>and evidence.</em></h2>
+          <p class="sec-label"><span class="sec-lap">Lap 1<b>/6</b></span>About</p>
+          <h2>Calm <em>in the chaos.</em></h2>
         </header>
 
         <div class="about">
@@ -179,9 +190,10 @@
               FastAPI backend, React front end, evaluation harness, tests and CI, deployed and live.
             </p>
             <p>
-              Away from the keyboard I follow Formula&nbsp;1 closely, and I’m a Max Verstappen fan. What I admire
-              most isn’t the raw speed. It’s the consistency: the same precision on the last lap as on the first,
-              and decisions made from data under pressure. I try to build software the same way.
+              I’m drawn to hard problems and comfortable in the mess before they make sense. When something fails,
+              I take it apart, find out why, and rebuild it better. MalariaVision missed 10.4% of infections in its
+              first version; three versions later it missed 3.7%. That loop of fail, learn, improve is the part of
+              engineering I enjoy most.
             </p>
           </div>
 
@@ -190,33 +202,65 @@
             <div><dt>Studying</dt><dd>B.Tech Computer Science · JIIT · 2024–28</dd></div>
             <div><dt>Focus</dt><dd>Explainable ML · Multimodal LLMs · Agentic workflows · Full-stack AI</dd></div>
             <div><dt>Principle</dt><dd><em>Models gather evidence. Code makes the call. Humans approve.</em></dd></div>
+            <div><dt>Off track</dt><dd>Formula&nbsp;1 · Max Verstappen fan</dd></div>
             <div><dt>Open to</dt><dd>Internships in ML &amp; software engineering</dd></div>
           </dl>
+        </div>
+
+        <div class="pitwall" data-reveal>
+          <div class="pitwall__head">
+            <span class="pitwall__tag">Off track · Formula 1</span>
+            <span class="pitwall__flag" aria-hidden="true"></span>
+          </div>
+          <div class="pitwall__body">
+            <div>
+              <h3 class="pitwall__title">104 points down. <em>Two points short.</em></h3>
+              <p>
+                I’m a Max Verstappen fan, and his 2025 season is the one I keep coming back to. Midway through the
+                year he was 104 points behind in the championship. He won eight races, more than any other driver,
+                and took the title fight to the final race in Abu Dhabi, where he won from pole and still finished
+                two points short.
+              </p>
+              <p class="pitwall__lesson">No title, and still the comeback of the year. Never accept the gap; close it one lap at a time.</p>
+            </div>
+            <dl class="pitwall__tele">
+              <div><dt>−104</dt><dd>points behind, mid-season</dd></div>
+              <div><dt>8</dt><dd>wins, the most on the grid</dd></div>
+              <div><dt>2</dt><dd>points from the title, final race</dd></div>
+            </dl>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ GALLERY I ============ -->
-    <section class="gallery" aria-labelledby="g1">
-      <div class="container gallery__grid">
-        <figure class="frame" data-reveal>
+    <section class="gallery gallery--wide" aria-labelledby="g1">
+      <div class="container">
+        <p class="gallery__intro" data-reveal>Four paintings hang on this page. Read in order, they tell the story I try to live: <em>chaos, the fall, the grind, the rise.</em></p>
+        <figure class="frame frame--wide" data-reveal>
           <div class="frame__inner">
-            <div class="frame__clip"><img src="assets/img/school-of-athens.webp" width="1600" height="1242" loading="lazy" decoding="async"
-                 alt="Raphael's School of Athens: philosophers gathered beneath a vaulted hall, with Plato pointing upward and Aristotle gesturing toward the ground at the centre." /></div>
+            <div class="frame__clip"><img src="assets/img/tiger-hunt.webp" width="1576" height="1238" loading="lazy" decoding="async"
+                 alt="Rubens's The Tiger Hunt: horsemen with spears, rearing horses, a tiger dragging a rider from the saddle, a man wrestling a lion's jaws and a leopard on the ground, all locked in one swirling struggle." /></div>
           </div>
+          <figcaption class="frame__credit">Photo: Pymouss, CC BY-SA 1.0, via Wikimedia Commons (perspective-corrected)</figcaption>
         </figure>
-        <div class="placard" data-reveal>
-          <p class="placard__no">Gallery · I</p>
-          <h3 id="g1" class="placard__title">The School of Athens</h3>
-          <p class="placard__meta">Raphael · 1509–1511 · Fresco, Apostolic Palace, Vatican</p>
-          <p class="placard__read">
-            At the centre, Plato points upward to the world of ideas. Beside him, Aristotle holds his palm flat
-            toward the earth, toward what can be observed and measured. Raphael doesn’t choose a winner. He puts
-            them side by side, in the same frame, mid-conversation.
-          </p>
-          <div class="placard__take">
-            <span>Why it hangs here</span>
-            <p>Good engineering lives in that gesture. A model offers a theory, and evidence decides whether it holds. I build systems that keep both in the frame.</p>
+        <div class="placard placard--wide" data-reveal>
+          <div>
+            <p class="placard__no">Gallery I · Chaos</p>
+            <h3 id="g1" class="placard__title">The Tiger Hunt</h3>
+            <p class="placard__meta">Peter Paul Rubens · c. 1615–16 · Musée des Beaux-Arts, Rennes</p>
+          </div>
+          <div>
+            <p class="placard__read">
+              Horses rear, a tiger drags a rider from the saddle, a man wrestles a lion’s jaws apart. It’s the painting
+              behind the Roy family in <em>Succession</em>’s first-season poster, and at first glance it’s pure chaos.
+              Look again: every spear, limb and claw runs along a few great diagonals that meet in the centre.
+              Rubens didn’t avoid the chaos. He composed it.
+            </p>
+            <div class="placard__take">
+              <span>Why it hangs here</span>
+              <p>Hard problems arrive like this, with everything moving at once. The work is to find the lines that hold it together, and to stay calm in the middle of it.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -226,8 +270,8 @@
     <section class="section" id="work">
       <div class="container">
         <header class="sec-head" data-reveal>
-          <p class="sec-label"><span>02</span>Selected work</p>
-          <h2>The grid, <em>in qualifying order.</em></h2>
+          <p class="sec-label"><span class="sec-lap">Lap 2<b>/6</b></span>Selected work</p>
+          <h2>The starting <em>grid.</em></h2>
           <p class="sec-sub">Built end to end, deployed, and tested. Each one ships with its evidence.</p>
         </header>
 
@@ -426,25 +470,25 @@
 
     <!-- ============ GALLERY II ============ -->
     <section class="gallery" aria-labelledby="g2">
-      <div class="container gallery__grid gallery__grid--flip">
-        <figure class="frame" data-reveal>
+      <div class="container gallery__grid gallery__grid--portrait gallery__grid--flip">
+        <figure class="frame frame--portrait" data-reveal>
           <div class="frame__inner">
-            <div class="frame__clip"><img src="assets/img/fall-of-icarus.webp" width="1600" height="1043" loading="lazy" decoding="async"
-                 alt="Landscape with the Fall of Icarus: a ploughman works a hillside field above a bright bay with sailing ships, while two small legs disappear into the sea near the lower right." /></div>
+            <div class="frame__clip"><img src="assets/img/conversion-of-saul.webp" width="1100" height="1445" loading="lazy" decoding="async"
+                 alt="Caravaggio's Conversion on the Way to Damascus: Saul lies on his back beneath a piebald horse, arms raised and eyes closed, lit by a beam of light while an old groom holds the horse." /></div>
           </div>
         </figure>
         <div class="placard" data-reveal>
-          <p class="placard__no">Gallery · II</p>
-          <h3 id="g2" class="placard__title">Landscape with the Fall of Icarus</h3>
-          <p class="placard__meta">Attributed to Pieter Bruegel the Elder · c. 1560 · Royal Museums of Fine Arts, Brussels</p>
+          <p class="placard__no">Gallery II · The fall</p>
+          <h3 id="g2" class="placard__title">The Conversion on the Way to Damascus</h3>
+          <p class="placard__meta">Caravaggio · 1601 · Cerasi Chapel, Santa Maria del Popolo, Rome</p>
           <p class="placard__read">
-            Find Icarus. He’s easy to miss: two pale legs vanishing into the sea, near the ship on the right.
-            The ploughman keeps ploughing, the shepherd looks the other way, the ship sails on. The boy who flew
-            too close to the sun is a footnote in his own painting.
+            Saul has been thrown from his horse. He lies on his back in the dirt, armour useless, arms open.
+            The horse stays calm, the groom barely notices, and a single beam of light falls on the man on the
+            ground. In the story, this is the moment his old life ends and a better one begins.
           </p>
           <div class="placard__take">
             <span>Why it hangs here</span>
-            <p>Ambition is the point, but without limits it ends in a splash nobody notices. The fastest lap still has to stay inside the white lines. In software, I draw those lines in code.</p>
+            <p>Failure looks like this from the inside: flat on your back, everything you relied on knocked away. It’s also where the light gets in. Every real rebuild starts with something breaking.</p>
           </div>
         </div>
       </div>
@@ -454,7 +498,7 @@
     <section class="section" id="method">
       <div class="container">
         <header class="sec-head" data-reveal>
-          <p class="sec-label"><span>03</span>Method</p>
+          <p class="sec-label"><span class="sec-lap">Lap 3<b>/6</b></span>Method</p>
           <h2>Race strategy <em>for AI systems.</em></h2>
           <p class="sec-sub">The pattern behind most of what I build. The model is fast; the rules keep it on track.</p>
         </header>
@@ -487,32 +531,25 @@
 
     <!-- ============ GALLERY III ============ -->
     <section class="gallery" aria-labelledby="g3">
-      <div class="container gallery__grid">
-        <figure class="frame frame--ambassadors" data-reveal>
+      <div class="container gallery__grid gallery__grid--portrait">
+        <figure class="frame frame--portrait" data-reveal>
           <div class="frame__inner">
-            <div class="frame__clip"><img id="ambassadors" src="assets/img/the-ambassadors.webp" width="1280" height="1261" loading="lazy" decoding="async"
-                 alt="Holbein's The Ambassadors: two richly dressed men stand beside a table of globes, sundials and instruments; a long, distorted grey shape stretches across the floor in front of them." /></div>
+            <div class="frame__clip"><img src="assets/img/sisyphus.webp" width="1100" height="1274" loading="lazy" decoding="async"
+                 alt="Titian's Sisyphus: a muscular man, bent forward, carries a huge boulder on his shoulders up a dark, rocky slope." /></div>
           </div>
-          <figcaption>
-            <button class="angle-btn" type="button" aria-pressed="false" aria-controls="ambassadors">
-              <span class="angle-btn__off">Change your angle</span>
-              <span class="angle-btn__on">Return to the front</span>
-            </button>
-            <span class="angle-note" aria-live="polite"></span>
-          </figcaption>
         </figure>
         <div class="placard" data-reveal>
-          <p class="placard__no">Gallery · III</p>
-          <h3 id="g3" class="placard__title">The Ambassadors</h3>
-          <p class="placard__meta">Hans Holbein the Younger · 1533 · National Gallery, London</p>
+          <p class="placard__no">Gallery III · The grind</p>
+          <h3 id="g3" class="placard__title">Sisyphus</h3>
+          <p class="placard__meta">Titian · 1548–49 · Museo del Prado, Madrid</p>
           <p class="placard__read">
-            Two confident men, and between them a table holding the most advanced instruments of their age:
-            celestial and terrestrial globes, sundials, a quadrant, a torquetum, books of arithmetic and music.
-            Across the floor runs a strange grey smear. Stand at the painting’s edge and it resolves into a skull.
+            Condemned to push a boulder up a hill forever, Sisyphus is usually read as a symbol of pointless effort.
+            Titian paints him differently: shoulder under the rock, legs braced, every muscle working. Not crushed.
+            Carrying it. Albert Camus ended his essay on the myth with a famous line: one must imagine Sisyphus happy.
           </p>
           <div class="placard__take">
             <span>Why it hangs here</span>
-            <p>Tools are powerful, but some truths only appear when you change your angle. That’s why I care about explainability: SHAP values, audit trails and evaluation sets are the instruments that show what a model is really doing.</p>
+            <p>Most progress is reps nobody sees: 300+ problems, rewritten pipelines, tests that fail before they pass. The boulder doesn’t get lighter. You get stronger.</p>
           </div>
         </div>
       </div>
@@ -522,8 +559,9 @@
     <section class="section" id="toolkit">
       <div class="container">
         <header class="sec-head" data-reveal>
-          <p class="sec-label"><span>04</span>Toolkit</p>
-          <h2>Instruments <em>on the table.</em></h2>
+          <p class="sec-label"><span class="sec-lap">Lap 4<b>/6</b></span>Toolkit</p>
+          <h2>The <em>setup.</em></h2>
+          <p class="sec-sub">What I bring to every session.</p>
         </header>
 
         <dl class="toolkit" data-reveal>
@@ -541,8 +579,8 @@
     <section class="section section--alt" id="record">
       <div class="container">
         <header class="sec-head" data-reveal>
-          <p class="sec-label"><span>05</span>Record</p>
-          <h2>Results, <em>on the record.</em></h2>
+          <p class="sec-label"><span class="sec-lap">Lap 5<b>/6</b></span>Record</p>
+          <h2>Podiums, <em>on the record.</em></h2>
         </header>
 
         <ul class="podium" data-reveal>
@@ -590,29 +628,26 @@
     </section>
 
     <!-- ============ GALLERY IV ============ -->
-    <section class="gallery gallery--wide" aria-labelledby="g4">
-      <div class="container">
-        <figure class="frame frame--wide" data-reveal>
+    <section class="gallery" aria-labelledby="g4">
+      <div class="container gallery__grid gallery__grid--portrait gallery__grid--flip">
+        <figure class="frame frame--portrait" data-reveal>
           <div class="frame__inner">
-            <div class="frame__clip"><img src="assets/img/creation-of-adam.webp" width="1600" height="726" loading="lazy" decoding="async"
-                 alt="Michelangelo's Creation of Adam: Adam reclines on the left and reaches toward God, borne by figures on the right; their fingers almost touch." /></div>
+            <div class="frame__clip"><img src="assets/img/resurrection.webp" width="807" height="830" loading="lazy" decoding="async"
+                 alt="Piero della Francesca's Resurrection: Christ steps from the tomb holding a banner while four soldiers sleep below; bare trees stand on the left, trees in leaf on the right." /></div>
           </div>
         </figure>
-        <div class="placard placard--wide" data-reveal>
-          <div>
-            <p class="placard__no">Gallery · IV</p>
-            <h3 id="g4" class="placard__title">The Creation of Adam</h3>
-            <p class="placard__meta">Michelangelo · c. 1508–1512 · Sistine Chapel ceiling, Vatican</p>
-          </div>
-          <div>
-            <p class="placard__read">
-              Perhaps the most famous detail in Western art is a gap: a few centimetres between two fingers that
-              never quite touch. All the energy of the fresco lives in that space, in the moment just before.
-            </p>
-            <div class="placard__take">
-              <span>Why it hangs here</span>
-              <p>Every collaboration starts with someone reaching out. If you’re building something ambitious and need an engineer who ships with evidence, close the gap.</p>
-            </div>
+        <div class="placard" data-reveal>
+          <p class="placard__no">Gallery IV · The rise</p>
+          <h3 id="g4" class="placard__title">The Resurrection</h3>
+          <p class="placard__meta">Piero della Francesca · c. 1463–65 · Museo Civico, Sansepolcro</p>
+          <p class="placard__read">
+            Christ steps out of the tomb while the guards sleep at his feet. Nobody is watching. Look at the
+            landscape: the trees on the left are bare, the ones on the right are in leaf. Winter turns to spring
+            in a single frame. Aldous Huxley called it the best picture in the world.
+          </p>
+          <div class="placard__take">
+            <span>Why it hangs here</span>
+            <p>Comebacks rarely have an audience. You rise quietly, while no one is looking, and let the results do the talking. That’s the engineer I’m building myself into.</p>
           </div>
         </div>
       </div>
@@ -622,7 +657,7 @@
     <section class="section contact" id="contact">
       <div class="container">
         <header class="sec-head" data-reveal>
-          <p class="sec-label"><span>06</span>Contact</p>
+          <p class="sec-label"><span class="sec-lap">Lap 6<b>/6</b></span>Contact · Finish</p>
           <h2>Let’s build something <em>worth explaining.</em></h2>
           <p class="sec-sub">I’m open to internships and collaborations in machine learning and software engineering. Email is the fastest way to reach me.</p>
         </header>
@@ -639,10 +674,11 @@
     </section>
   </main>
 
+  <div class="chequer" aria-hidden="true"></div>
   <footer class="footer">
     <div class="container footer__inner">
       <p>© <span id="year">2026</span> Shiva Preetham Chelimila · Noida, India</p>
-      <p class="footer__art">Paintings in the public domain, via Wikimedia Commons.</p>
+      <p class="footer__art">Paintings in the public domain, via Wikimedia Commons. <em>The Tiger Hunt</em> photo by Pymouss, CC BY-SA 1.0.</p>
       <p class="footer__radio" title="Max Verstappen, team radio">“Simply lovely.”</p>
     </div>
   </footer>

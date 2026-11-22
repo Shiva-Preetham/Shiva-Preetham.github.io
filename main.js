@@ -3,7 +3,7 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-  /* Renaissance perspective floor: lines converging on one vanishing point */
+  /* Perspective floor behind the hero: lines converging on one vanishing point */
   const grid = $('.floor__grid');
   if (grid) {
     const NS = 'http://www.w3.org/2000/svg';
@@ -21,19 +21,21 @@
     }
   }
 
-  /* Five red lights, then lights out */
+  /* Start gantry: five pods light one by one, then lights out */
   const start = $('.start');
-  const lights = $$('.lights i');
-  if (start && lights.length) {
+  const pods = $$('.gantry .pod');
+  const startText = $('.start__text');
+  const lightsOut = () => {
+    pods.forEach(p => p.classList.remove('on'));
+    start.classList.add('is-out');
+    startText.textContent = 'Lights out and away we go';
+  };
+  if (start && pods.length) {
     if (reduce) {
-      start.classList.add('is-out');
+      lightsOut();
     } else {
-      lights.forEach((l, i) => setTimeout(() => l.classList.add('on'), 350 + i * 380));
-      setTimeout(() => {
-        lights.forEach(l => l.classList.remove('on'));
-        start.classList.add('is-out');
-        $('.start__text').textContent = 'Lights out · Portfolio 2026';
-      }, 350 + 5 * 380 + 700);
+      pods.forEach((p, i) => setTimeout(() => p.classList.add('on'), 500 + i * 650));
+      setTimeout(lightsOut, 500 + 5 * 650 + 900);
     }
   }
 
@@ -48,31 +50,50 @@
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
   $$('[data-reveal]').forEach(el => revealIO.observe(el));
 
-  /* Active section = purple sector in the nav */
+  /* Active section: purple sector in the nav, lap counter on the circuit map */
+  const laps = { about: [1, 'About'], work: [2, 'The grid'], method: [3, 'Strategy'], toolkit: [4, 'Setup'], record: [5, 'Podiums'], contact: [6, 'Finish'] };
+  const lapEl = $('.circuit__lap');
+  const secEl = $('.circuit__sec');
   const links = new Map($$('.nav__links a[data-sec]').map(a => [a.dataset.sec, a]));
   const secIO = new IntersectionObserver((entries) => {
     entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(x => x.classList.remove('is-active'));
       const a = links.get(e.target.id);
-      if (!a) return;
-      if (e.isIntersecting) {
-        links.forEach(x => x.classList.remove('is-active'));
-        a.classList.add('is-active');
-      }
+      if (a) a.classList.add('is-active');
+      const lap = laps[e.target.id];
+      if (lap && lapEl) { lapEl.textContent = `Lap ${lap[0]}/6`; secEl.textContent = lap[1]; }
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
-  links.forEach((_, id) => { const s = document.getElementById(id); if (s) secIO.observe(s); });
+  Object.keys(laps).forEach(id => { const s = document.getElementById(id); if (s) secIO.observe(s); });
 
-  /* Lap progress + sticky nav border */
+  /* Circuit map: the car follows your scroll around the track */
+  const circuit = $('.circuit');
+  const done = $('.circuit__done');
+  const car = $('.circuit__car');
+  const trackLen = done ? done.getTotalLength() : 0;
+  if (done) { done.style.strokeDasharray = trackLen; done.style.strokeDashoffset = trackLen; }
+
+  /* Lap progress + sticky nav border + circuit */
   const nav = $('.nav');
   const lap = $('.lap');
   let ticking = false;
   const onScroll = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
-    lap.style.setProperty('--p', max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0);
+    const p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    lap.style.setProperty('--p', p.toFixed(4));
     nav.classList.toggle('is-stuck', scrollY > 8);
+    if (done) {
+      const pt = done.getPointAtLength(p * trackLen);
+      car.setAttribute('cx', pt.x.toFixed(2));
+      car.setAttribute('cy', pt.y.toFixed(2));
+      done.style.strokeDashoffset = (trackLen * (1 - p)).toFixed(2);
+      circuit.classList.toggle('is-on', scrollY > innerHeight * 0.55);
+    }
     ticking = false;
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener('resize', onScroll);
   onScroll();
 
   /* Mobile menu */
@@ -85,19 +106,6 @@
   toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
   menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
-
-  /* The Ambassadors: change your angle to see the skull */
-  const angleBtn = $('.angle-btn');
-  if (angleBtn) {
-    const frame = angleBtn.closest('.frame');
-    const note = $('.angle-note', frame);
-    angleBtn.addEventListener('click', () => {
-      const on = angleBtn.getAttribute('aria-pressed') !== 'true';
-      angleBtn.setAttribute('aria-pressed', String(on));
-      frame.classList.toggle('is-angled', on);
-      note.textContent = on ? 'From the side, the skull resolves and the ambassadors distort.' : '';
-    });
-  }
 
   const y = $('#year');
   if (y) y.textContent = new Date().getFullYear();
