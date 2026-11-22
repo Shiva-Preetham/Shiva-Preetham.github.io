@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shiva-preetham.github.io/sitemap.xml
