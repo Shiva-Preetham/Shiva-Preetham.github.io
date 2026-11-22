@@ -657,3 +657,6 @@ em { font-style: italic; }
   .pole__tag { bottom: 30px; }
 }
 html:not(.js) .pole__img, html:not(.js) .pole__tag { filter: none; transform: none; opacity: 1; }
+
+/* About has no heading now: keep the label close to the intro */
+#about .sec-head { margin-bottom: 28px; }
