@@ -5,7 +5,7 @@ Personal portfolio of **Shiva Preetham Chelimila**, AI/ML engineer and B.Tech CS
 **Live:** https://shiva-preetham.github.io
 
 A single static page (HTML, CSS, a little vanilla JS), no build step, hosted free on GitHub Pages.
-The design pairs the precision of Formula 1 (a timing tower, sector markers, lights out) with four
+The design pairs the precision of Formula 1 (start lights, a timing tower, lap counters and a number 3 car) with four
 Old Master paintings that tell one story: chaos, the fall, the grind, the rise.
 
 ## Edit
@@ -23,7 +23,7 @@ Push to `main` and GitHub Pages redeploys within a minute or two.
 ## Paintings
 
 - Peter Paul Rubens, *The Tiger Hunt* (c. 1615–16): chaos
-- Caravaggio, *The Conversion on the Way to Damascus* (1601): the fall
+- Attributed to Pieter Bruegel the Elder, *Landscape with the Fall of Icarus* (c. 1560): the fall
 - Titian, *Sisyphus* (1548–49): the grind
 - Piero della Francesca, *The Resurrection* (c. 1463–65): the rise
 

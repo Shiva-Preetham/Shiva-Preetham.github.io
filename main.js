@@ -29,6 +29,8 @@
     pods.forEach(p => p.classList.remove('on'));
     start.classList.add('is-out');
     startText.textContent = 'Lights out and away we go';
+    const track = $('.track');
+    if (track) track.classList.add('is-go');
   };
   if (start && pods.length) {
     if (reduce) {
