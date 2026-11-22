@@ -706,3 +706,17 @@ html:not(.js) .pole__img, html:not(.js) .pole__tag { filter: none; transform: no
 .pitwall__body .pitwall__now { margin: 0 0 18px; padding-left: 14px; border-left: 2px solid var(--gold); color: var(--ink-2); }
 .pitwall__now span { display: block; margin-bottom: 4px; font: italic 700 13px/1 var(--f1); letter-spacing: .12em; color: var(--gold); }
 .pitwall__tele div:nth-child(4) dt { color: var(--gold); }
+
+/* Résumé links */
+.nav__links a.nav__resume { color: var(--ink-2); }
+.nav__links a.nav__resume i { font-style: normal; margin-left: 4px; color: var(--red); }
+.nav__links a.nav__resume::after { display: none; }
+.contact__links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 960px) {
+  .contact__links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact__links li:nth-child(odd) a { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 640px) {
+  .contact__links { grid-template-columns: 1fr; }
+  .contact__links li a, .contact__links li + li a { padding-left: 0; border-left: 0; }
+}
