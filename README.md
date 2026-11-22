@@ -5,8 +5,8 @@ Personal portfolio of **Shiva Preetham Chelimila**, AI/ML engineer and B.Tech CS
 **Live:** https://shiva-preetham.github.io
 
 A single static page (HTML, CSS, a little vanilla JS), no build step, hosted free on GitHub Pages.
-The design pairs the precision of Formula 1 (start lights, a timing tower, lap counters and a number 3 car) with four
-Old Master paintings that tell one story: chaos, the fall, the grind, the rise.
+A Formula 1 theme throughout: start lights, a live-timing tower, lap counters, a starting grid of
+projects, a circuit map that tracks your scroll, and Max Verstappen's number 3 RB22.
 
 ## Edit
 
@@ -15,16 +15,11 @@ Old Master paintings that tell one story: chaos, the fall, the grind, the rise.
 | Text, projects, links | `index.html` |
 | Colours, fonts, layout | `styles.css` (tokens at the top) |
 | Start lights, circuit map, animations, menu | `main.js` |
-| Paintings | `assets/img/` (via Wikimedia Commons) |
+| Car photo | `assets/img/rb22-verstappen.webp` |
 
 Preview locally: `python -m http.server 8000`, then open http://localhost:8000.
 Push to `main` and GitHub Pages redeploys within a minute or two.
 
-## Paintings
+## Credits
 
-- Peter Paul Rubens, *The Tiger Hunt* (c. 1615–16): chaos
-- Attributed to Pieter Bruegel the Elder, *Landscape with the Fall of Icarus* (c. 1560): the fall
-- Titian, *Sisyphus* (1548–49): the grind
-- Piero della Francesca, *The Resurrection* (c. 1463–65): the rise
-
-All from Wikimedia Commons. The paintings are public domain; the photo of *The Tiger Hunt* is by Pymouss (CC BY-SA 1.0), perspective-corrected here.
+RB22 photo: [Liauzh](https://commons.wikimedia.org/wiki/File:2026_Chinese_GP_-_Red_Bull_-_Max_Verstappen_-_FP1.jpg), CC BY 4.0, via Wikimedia Commons (colour-graded).
