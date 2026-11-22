@@ -47,24 +47,37 @@
     const timeEl = $('.loader__time b', loader);
     const label = $('.loader__label', loader);
     const bar = $('.loader__bar i', loader);
+    /* The clock runs live until the browser reports the page fully loaded, then
+       stops on that real load time (Navigation Timing). The lights keep their own
+       rhythm, and lights out comes once both are done. */
     let raf = 0;
-    const tick = () => { timeEl.textContent = (performance.now() / 1000).toFixed(3); raf = requestAnimationFrame(tick); };
+    let stopped = false;
+    const show = (ms) => { timeEl.textContent = (ms / 1000).toFixed(3); };
+    const tick = () => { if (stopped) return; show(performance.now()); raf = requestAnimationFrame(tick); };
     tick();
+    const stopClock = (ms) => { stopped = true; cancelAnimationFrame(raf); show(ms); };
+    const loadTime = () => {
+      const nav = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+      if (nav && nav.loadEventStart > 0) return nav.loadEventStart;
+      const t = performance.timing;
+      if (t && t.loadEventStart > 0) return t.loadEventStart - t.navigationStart;
+      return performance.now();
+    };
     const STEP = 260;
     lpods.forEach((p, i) => setTimeout(() => {
       p.classList.add('on');
-      bar.style.transform = `scaleX(${(i + 1) / 5})`;
+      bar.style.transform = 'scaleX(' + (i + 1) / 5 + ')';
     }, 200 + i * STEP));
     const lightsReady = new Promise(r => setTimeout(r, 200 + 5 * STEP + 350));
     const pageReady = new Promise(r => {
-      if (document.readyState === 'complete') r();
-      else addEventListener('load', r, { once: true });
-      setTimeout(r, 4000);
+      const loaded = () => { stopClock(loadTime()); label.textContent = 'Page loaded in'; r(); };
+      if (document.readyState === 'complete') loaded();
+      else addEventListener('load', () => setTimeout(loaded, 0), { once: true });
+      setTimeout(r, 4000); // slow connection: stop waiting, never block the page
     });
     Promise.all([lightsReady, pageReady]).then(() => {
-      cancelAnimationFrame(raf);
+      if (!stopped) { stopClock(performance.now()); label.textContent = 'Still loading after'; }
       lpods.forEach(p => p.classList.remove('on'));
-      label.textContent = 'Fastest lap';
       loader.classList.add('is-out');
       setTimeout(() => {
         loader.classList.add('is-done');

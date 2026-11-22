@@ -695,3 +695,6 @@ html:not(.js) .pole__img, html:not(.js) .pole__tag { filter: none; transform: no
   .loader__gantry .pod { gap: 6px; padding: 6px; }
   .loader__gantry .pod i { width: 20px; height: 20px; }
 }
+
+/* live timing ends on its last row */
+.tower__rows li:last-child { border-bottom: 0; }
