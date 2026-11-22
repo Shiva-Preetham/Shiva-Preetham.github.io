@@ -25,7 +25,10 @@
   const start = $('.start');
   const pods = $$('.start .pod');
   const startText = $('.start__text');
+  const tower = $('.tower');
+  const towerIn = () => { if (tower) tower.classList.add('is-live'); }; // rows arrive like a TV graphic
   const lightsOut = () => {
+    towerIn();
     pods.forEach(p => p.classList.remove('on'));
     if (start) start.classList.add('is-out');
     if (startText) startText.textContent = 'Lights out and away we go';
@@ -95,7 +98,7 @@
   } else {
     if (loader) loader.hidden = true;
     root.classList.remove('is-loading');
-    if (reduce) lightsOut(); else heroSequence();
+    if (reduce) lightsOut(); else { setTimeout(towerIn, 350); heroSequence(); }
   }
 
   /* Reveal on scroll */
@@ -155,6 +158,32 @@
   addEventListener('resize', onScroll);
   onScroll();
 
+  /* Steering-wheel display: scroll speed as km/h, a gear, and DRS when you really go for it */
+  const hud = $('.hud');
+  if (hud && circuit) {
+    const speedEl = $('.hud__speed b', hud);
+    const gearEl = $('.hud__gear', hud);
+    let lastY = scrollY, lastT = performance.now(), speed = 0, target = 0, running = false;
+    const frame = () => {
+      speed += (target - speed) * 0.18;
+      target *= 0.9;
+      if (speed < 1 && target < 1) { speed = 0; running = false; }
+      const kmh = Math.round(speed);
+      speedEl.textContent = kmh;
+      gearEl.textContent = kmh < 5 ? 'N' : String(Math.min(8, Math.floor(kmh / 42) + 1));
+      if (kmh > 285) hud.classList.add('is-drs'); else if (kmh < 240) hud.classList.remove('is-drs');
+      if (running) requestAnimationFrame(frame);
+    };
+    addEventListener('scroll', () => {
+      const now = performance.now();
+      const dt = Math.max(8, now - lastT);
+      const v = Math.abs(scrollY - lastY) / dt;          // px per ms
+      lastY = scrollY; lastT = now;
+      target = Math.max(target, Math.min(342, v * 110)); // reading ≈ 30–80 km/h; a hard flick or a nav jump tops out near 340
+      if (!running && getComputedStyle(circuit).display !== 'none') { running = true; requestAnimationFrame(frame); }
+    }, { passive: true });
+  }
+
   /* Mobile menu */
   const toggle = $('.nav__toggle');
   const menu = $('#nav-links');
@@ -165,6 +194,88 @@
   toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
   menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+  /* Team radio: latest pushes, live from GitHub (public API, cached for 15 minutes).
+     If the API can't be reached the panel simply stays hidden. */
+  const radio = $('#radio');
+  if (radio && 'fetch' in window) {
+    const USER = 'Shiva-Preetham';
+    const SKIP = new Set([`${USER}.github.io`, USER]); // the portfolio itself and the profile README
+    const KEY = 'sp-radio-v1';
+    const rtf = 'RelativeTimeFormat' in Intl ? new Intl.RelativeTimeFormat('en', { numeric: 'auto' }) : null;
+    const ago = (iso) => {
+      const s = (new Date(iso) - Date.now()) / 1000;
+      const units = [['year', 31536000], ['month', 2592000], ['week', 604800], ['day', 86400], ['hour', 3600], ['minute', 60]];
+      for (const [u, sec] of units) if (Math.abs(s) >= sec) return rtf ? rtf.format(Math.round(s / sec), u) : `${Math.round(-s / sec)} ${u}s ago`;
+      return 'just now';
+    };
+    const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; };
+    const render = (data) => {
+      if (!data.list || !data.list.length) return;
+      const rows = $('.radio__rows', radio);
+      rows.textContent = '';
+      data.list.forEach(r => {
+        const li = el('li');
+        li.append(el('span', 'radio__when', ago(r.p)));
+        const a = el('a', 'radio__repo', r.n); a.href = r.u; a.target = '_blank'; a.rel = 'noopener';
+        li.append(a, el('span', 'radio__desc', r.d), el('span', 'radio__lang', r.l));
+        rows.append(li);
+      });
+      const n = data.pushes;
+      $('.radio__count', radio).textContent = n ? `${n >= 100 ? '100+' : n} push${n === 1 ? '' : 'es'} in the last 30 days` : '';
+      radio.hidden = false;
+    };
+    let cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (cached && Date.now() - cached.t < 15 * 60 * 1000) {
+      render(cached);
+    } else {
+      const api = (path) => fetch(`https://api.github.com${path}`, { headers: { Accept: 'application/vnd.github+json' } })
+        .then(r => (r.ok ? r.json() : Promise.reject(r.status)));
+      Promise.all([
+        api(`/users/${USER}/repos?sort=pushed&per_page=12`),
+        api(`/users/${USER}/events/public?per_page=100`).catch(() => []),
+      ]).then(([repos, events]) => {
+        const list = repos.filter(r => !r.fork && !SKIP.has(r.name)).slice(0, 4).map(r => ({
+          n: r.name,
+          d: (r.description || '').replace(/^[^\p{L}\p{N}]+/u, ''), // drop leading emoji for a cleaner line
+          l: r.language || '',
+          p: r.pushed_at,
+          u: r.html_url,
+        }));
+        const since = Date.now() - 30 * 864e5;
+        const pushes = events.filter(e => e.type === 'PushEvent' && !SKIP.has(e.repo.name.split('/')[1]) && new Date(e.created_at) > since).length;
+        const data = { t: Date.now(), list, pushes };
+        try { sessionStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+        render(data);
+      }).catch(() => {});
+    }
+  }
+
+  /* Copy email */
+  const legacyCopy = (text) => { // for browsers or frames where the async clipboard API is blocked
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:-100px;opacity:0';
+    document.body.append(ta); ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+    return ok;
+  };
+  $$('.copy').forEach(btn => btn.addEventListener('click', async () => {
+    const label = $('.copy__label', btn);
+    const text = btn.dataset.copy;
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch (e) { ok = legacyCopy(text); }
+    if (ok) {
+      label.textContent = 'Copied';
+      btn.classList.add('is-done');
+    } else {
+      label.textContent = text; // nothing worked: show it so it can be selected by hand
+    }
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { label.textContent = 'Copy email'; btn.classList.remove('is-done'); }, 2200);
+  }));
 
   const y = $('#year');
   if (y) y.textContent = new Date().getFullYear();

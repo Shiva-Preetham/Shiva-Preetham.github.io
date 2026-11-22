@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Titillium+Web:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261122e" />
+  <link rel="stylesheet" href="styles.css?v=20261122v2" />
   <script>
     (function () {
       var d = document.documentElement, seen = false;
@@ -76,6 +76,11 @@
       <line class="circuit__start" x1="34" y1="85" x2="34" y2="99" />
       <circle class="circuit__car" cx="34" cy="92" r="4.5" />
     </svg>
+    <div class="hud" aria-hidden="true">
+      <span class="hud__speed"><b>0</b><small>km/h</small></span>
+      <span class="hud__gear">N</span>
+      <span class="hud__drs">DRS</span>
+    </div>
     <p class="circuit__meta"><span class="circuit__lap">Lap 1/6</span><span class="circuit__sec">Start</span></p>
   </aside>
 
@@ -290,6 +295,11 @@
         <div class="grid-cards">
 
           <article class="card" data-reveal>
+            <a class="card__media" href="https://youtu.be/_eDtsG07IjE" target="_blank" rel="noopener">
+              <img src="assets/img/onboard/saveflow.webp" width="960" height="540" loading="lazy" decoding="async" alt="Watch the SaveFlow demo video" />
+              <span class="card__onair"><i></i>Onboard · Video</span>
+              <span class="card__play" aria-hidden="true"></span>
+            </a>
             <div class="card__top">
               <span class="card__pos">P1</span>
               <span class="card__event">PayPal AI Hackathon · Solo · Nov 2026</span>
@@ -316,6 +326,10 @@
           </article>
 
           <article class="card" data-reveal>
+            <a class="card__media" href="https://malariavision.vercel.app" target="_blank" rel="noopener">
+              <img src="assets/img/onboard/malaria.webp" width="960" height="540" loading="lazy" decoding="async" alt="Open the MalariaVision live demo" />
+              <span class="card__onair"><i></i>Onboard · Live demo</span>
+            </a>
             <div class="card__top">
               <span class="card__pos">P2</span>
               <span class="card__event">IPCV Lab, JIIT · Team of 4 · Nov 2026</span>
@@ -340,6 +354,10 @@
           </article>
 
           <article class="card" data-reveal>
+            <a class="card__media" href="https://github.com/Shiva-Preetham/hackerrank-orchestrate-june26-multimodal-evidence-review" target="_blank" rel="noopener">
+              <img src="assets/img/onboard/claim.webp" width="960" height="540" loading="lazy" decoding="async" alt="Open the Claim Verifier code on GitHub" />
+              <span class="card__onair"><i></i>Onboard · Code</span>
+            </a>
             <div class="card__top">
               <span class="card__pos">P3</span>
               <span class="card__event">HackerRank Orchestrate · Jun 2026 · Rank 227 / 1,773</span>
@@ -364,6 +382,10 @@
           </article>
 
           <article class="card" data-reveal>
+            <a class="card__media" href="https://market-lens-nu.vercel.app" target="_blank" rel="noopener">
+              <img src="assets/img/onboard/marketlens.webp" width="960" height="540" loading="lazy" decoding="async" alt="Open the MarketLens live demo" />
+              <span class="card__onair"><i></i>Onboard · Live demo</span>
+            </a>
             <div class="card__top">
               <span class="card__pos">P4</span>
               <span class="card__event">Independent project</span>
@@ -389,6 +411,10 @@
           </article>
 
           <article class="card" data-reveal>
+            <a class="card__media" href="https://churnsense-one.vercel.app" target="_blank" rel="noopener">
+              <img src="assets/img/onboard/churnsense.webp" width="960" height="540" loading="lazy" decoding="async" alt="Open the ChurnSense live demo" />
+              <span class="card__onair"><i></i>Onboard · Live demo</span>
+            </a>
             <div class="card__top">
               <span class="card__pos">P5</span>
               <span class="card__event">Agile PBL, JIIT</span>
@@ -413,6 +439,11 @@
           </article>
 
           <article class="card" data-reveal>
+            <a class="card__media" href="https://youtu.be/mUrFossp2F4" target="_blank" rel="noopener">
+              <img src="assets/img/onboard/support.webp" width="960" height="540" loading="lazy" decoding="async" alt="Watch the Support-to-Ship Bridge demo video" />
+              <span class="card__onair"><i></i>Onboard · Video</span>
+              <span class="card__play" aria-hidden="true"></span>
+            </a>
             <div class="card__top">
               <span class="card__pos">P6</span>
               <span class="card__event">Flip the Switch Hackathon · WeMakeDevs</span>
@@ -476,6 +507,20 @@
               <span>TypeScript · Docker</span>
             </li>
           </ul>
+        </div>
+
+        <div class="radio" id="radio" data-reveal hidden>
+          <div class="radio__head">
+            <span class="radio__wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="radio__tag">Team radio</span>
+            <span class="radio__sub">Latest pushes, live from GitHub</span>
+            <span class="radio__live"><i></i>Live</span>
+          </div>
+          <ol class="radio__rows"></ol>
+          <p class="radio__foot">
+            <span class="radio__count"></span>
+            <a href="https://github.com/Shiva-Preetham?tab=repositories" target="_blank" rel="noopener">All repositories<i>↗</i></a>
+          </p>
         </div>
       </div>
     </section>
@@ -551,18 +596,51 @@
           <li><strong>100%</strong><span>in Physics, Chemistry and Maths, Class XII (98.3% overall)</span></li>
         </ul>
 
-        <div class="record">
-          <div class="record__col" data-reveal>
-            <h3>Hackathons</h3>
-            <ul class="log">
-              <li><span>Jun 2026</span><p>HackerRank Orchestrate <em>· rank 227 / 1,773</em><br />Multi-Modal Claim Evidence Verifier</p></li>
-              <li><span>Aug 2026</span><p>HackerRank Orchestrate<br />Message Notification Router</p></li>
-              <li><span>Nov 2026</span><p>PayPal AI Hackathon <em>· solo</em><br />SaveFlow</p></li>
-              <li><span>Nov 2026</span><p>Meta Global AI Developer Hackathon <em>· indie track</em><br />ChronoTrace · Signal</p></li>
-              <li><span>Nov 2026</span><p>Flip the Switch <em>· WeMakeDevs × DevTools Academy</em><br />Support-to-Ship Bridge</p></li>
-            </ul>
+        <div class="season" data-reveal>
+          <div class="season__head">
+            <h3>2026 season · hackathons</h3>
+            <span>5 rounds · 5 finishes</span>
           </div>
+          <ol class="season__rounds">
+            <li class="is-best">
+              <span class="season__rd">R1</span>
+              <span class="season__date">Jun</span>
+              <p class="season__event">HackerRank Orchestrate</p>
+              <p class="season__entry">Multi-Modal Claim Evidence Verifier</p>
+              <span class="season__result">P227 / 1,773 · Top 13%</span>
+            </li>
+            <li>
+              <span class="season__rd">R2</span>
+              <span class="season__date">Aug</span>
+              <p class="season__event">HackerRank Orchestrate</p>
+              <p class="season__entry">Message Notification Router</p>
+              <span class="season__result">Submitted</span>
+            </li>
+            <li>
+              <span class="season__rd">R3</span>
+              <span class="season__date">Nov</span>
+              <p class="season__event">PayPal AI Hackathon</p>
+              <p class="season__entry">SaveFlow</p>
+              <span class="season__result">Solo build</span>
+            </li>
+            <li>
+              <span class="season__rd">R4</span>
+              <span class="season__date">Nov</span>
+              <p class="season__event">Meta Global AI Developer Hackathon</p>
+              <p class="season__entry">ChronoTrace · Signal</p>
+              <span class="season__result">Indie track</span>
+            </li>
+            <li>
+              <span class="season__rd">R5</span>
+              <span class="season__date">Nov</span>
+              <p class="season__event">Flip the Switch · WeMakeDevs</p>
+              <p class="season__entry">Support-to-Ship Bridge</p>
+              <span class="season__result">Business workflow track</span>
+            </li>
+          </ol>
+        </div>
 
+        <div class="record record--two">
           <div class="record__col" data-reveal>
             <h3>Education</h3>
             <ul class="log">
@@ -598,7 +676,10 @@
         </header>
 
         <div class="contact__body" data-reveal>
-          <a class="contact__mail" href="mailto:shivapreetham079@gmail.com">shivapreetham079@gmail.com</a>
+          <div class="contact__mailrow">
+            <a class="contact__mail" href="mailto:shivapreetham079@gmail.com">shivapreetham079@gmail.com</a>
+            <button class="copy" type="button" data-copy="shivapreetham079@gmail.com"><span class="copy__label">Copy email</span></button>
+          </div>
           <ul class="contact__links">
             <li><a href="assets/Shiva_Preetham_Chelimila_Resume.pdf" target="_blank" rel="noopener"><span>Résumé</span><em>PDF · one page</em><i>↗</i></a></li>
             <li><a href="https://www.linkedin.com/in/shiva-preetham-c-0124a2318/" target="_blank" rel="noopener"><span>LinkedIn</span><em>shiva-preetham-c</em><i>↗</i></a></li>
@@ -619,6 +700,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=20261122d" defer></script>
+  <script src="main.js?v=20261122v2" defer></script>
 </body>
 </html>
