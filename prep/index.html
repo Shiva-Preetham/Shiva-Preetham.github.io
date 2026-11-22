@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Interview Field Manual · System Design and Core CS</title>
+  <meta name="description" content="A study guide for software engineering interviews: 20 systems with HLD and LLD, design fundamentals, computer networks, operating systems, DBMS, OOP, React and FastAPI, with diagrams, simulators and MCQs." />
+  <meta name="theme-color" content="#EEF2EF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0E1F3A" media="(prefers-color-scheme: dark)" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/hl-github.min.css" id="hl-light" />
+  <link rel="stylesheet" href="vendor/hl-github-dark.min.css" id="hl-dark" disabled />
+  <link rel="stylesheet" href="assets/app.css?v=1" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("prep:theme");
+        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      } catch (e) { document.documentElement.dataset.theme = "light"; }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail" id="rail" aria-label="Sheet index">
+      <div class="rail-head">
+        <a href="#/" class="brand" aria-label="Field manual home">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2.5" y="2.5" width="27" height="27" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 22 L14 10 L18 18 L24 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="14" cy="10" r="2" fill="currentColor"/><circle cx="18" cy="18" r="2" fill="currentColor"/></svg>
+          <span>Field Manual</span>
+        </a>
+        <button class="icon-btn rail-close" id="railClose" aria-label="Close index">✕</button>
+      </div>
+      <button class="search-trigger" id="searchOpen"><span>Search everything</span><kbd>/</kbd></button>
+      <nav id="nav"></nav>
+      <div class="rail-foot">
+        <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark">◐ <span>Theme</span></button>
+        <a class="icon-btn" href="https://github.com/Shiva-Preetham/shiva-preetham.github.io/tree/main/prep/content" target="_blank" rel="noopener">✎ <span>Edit on GitHub</span></a>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+    <header class="topbar">
+      <button class="icon-btn" id="railOpen" aria-label="Open index">☰</button>
+      <a href="#/" class="brand small">Field Manual</a>
+      <button class="icon-btn" id="searchOpen2" aria-label="Search">⌕</button>
+    </header>
+    <main id="main" tabindex="-1"></main>
+  </div>
+
+  <div class="search" id="search" hidden role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-box">
+      <input id="q" type="search" placeholder="Search systems, topics, questions…" autocomplete="off" />
+      <div id="results" class="results"></div>
+      <p class="search-hint">Enter opens the first result · Esc closes</p>
+    </div>
+  </div>
+
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/highlight.min.js"></script>
+  <script src="assets/widgets.js?v=1"></script>
+  <script src="assets/app.js?v=1"></script>
+</body>
+</html>
