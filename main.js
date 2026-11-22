@@ -21,24 +21,62 @@
     }
   }
 
-  /* Start gantry: five pods light one by one, then lights out */
+  /* Start gantry in the hero */
   const start = $('.start');
-  const pods = $$('.gantry .pod');
+  const pods = $$('.start .pod');
   const startText = $('.start__text');
   const lightsOut = () => {
     pods.forEach(p => p.classList.remove('on'));
-    start.classList.add('is-out');
-    startText.textContent = 'Lights out and away we go';
+    if (start) start.classList.add('is-out');
+    if (startText) startText.textContent = 'Lights out and away we go';
     const pole = $('.pole');
     if (pole) pole.classList.add('is-lit');
   };
-  if (start && pods.length) {
-    if (reduce) {
-      lightsOut();
-    } else {
-      pods.forEach((p, i) => setTimeout(() => p.classList.add('on'), 500 + i * 650));
-      setTimeout(lightsOut, 500 + 5 * 650 + 900);
-    }
+  const heroSequence = () => {
+    pods.forEach((p, i) => setTimeout(() => p.classList.add('on'), 500 + i * 650));
+    setTimeout(lightsOut, 500 + 5 * 650 + 900);
+  };
+
+  /* Loading screen: five red lights and a lap timer; lights out reveals the page.
+     Shown once per browser session and skipped for reduced motion. */
+  const root = document.documentElement;
+  const loader = $('.loader');
+  if (loader && root.classList.contains('is-loading')) {
+    try { sessionStorage.setItem('sp-lights', '1'); } catch (e) {}
+    const lpods = $$('.pod', loader);
+    const timeEl = $('.loader__time b', loader);
+    const label = $('.loader__label', loader);
+    const bar = $('.loader__bar i', loader);
+    let raf = 0;
+    const tick = () => { timeEl.textContent = (performance.now() / 1000).toFixed(3); raf = requestAnimationFrame(tick); };
+    tick();
+    const STEP = 260;
+    lpods.forEach((p, i) => setTimeout(() => {
+      p.classList.add('on');
+      bar.style.transform = `scaleX(${(i + 1) / 5})`;
+    }, 200 + i * STEP));
+    const lightsReady = new Promise(r => setTimeout(r, 200 + 5 * STEP + 350));
+    const pageReady = new Promise(r => {
+      if (document.readyState === 'complete') r();
+      else addEventListener('load', r, { once: true });
+      setTimeout(r, 4000);
+    });
+    Promise.all([lightsReady, pageReady]).then(() => {
+      cancelAnimationFrame(raf);
+      lpods.forEach(p => p.classList.remove('on'));
+      label.textContent = 'Fastest lap';
+      loader.classList.add('is-out');
+      setTimeout(() => {
+        loader.classList.add('is-done');
+        root.classList.remove('is-loading');
+        lightsOut();
+      }, 650);
+      setTimeout(() => { loader.hidden = true; }, 1700);
+    });
+  } else {
+    if (loader) loader.hidden = true;
+    root.classList.remove('is-loading');
+    if (reduce) lightsOut(); else heroSequence();
   }
 
   /* Reveal on scroll */
