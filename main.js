@@ -55,7 +55,13 @@
     const show = (ms) => { timeEl.textContent = (ms / 1000).toFixed(3); };
     const tick = () => { if (stopped) return; show(performance.now()); raf = requestAnimationFrame(tick); };
     tick();
-    const stopClock = (ms) => { stopped = true; cancelAnimationFrame(raf); show(ms); };
+    /* Sector colours, as on F1 timing screens: purple for a fast load,
+       green when it takes a little longer, yellow when it is slow. */
+    const sector = (ms) => (ms <= 1000 ? 'purple' : ms <= 2500 ? 'green' : 'yellow');
+    const stopClock = (ms) => {
+      stopped = true; cancelAnimationFrame(raf); show(ms);
+      loader.dataset.sector = sector(ms);
+    };
     const loadTime = () => {
       const nav = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
       if (nav && nav.loadEventStart > 0) return nav.loadEventStart;
@@ -76,7 +82,7 @@
       setTimeout(r, 4000); // slow connection: stop waiting, never block the page
     });
     Promise.all([lightsReady, pageReady]).then(() => {
-      if (!stopped) { stopClock(performance.now()); label.textContent = 'Still loading after'; }
+      if (!stopped) { stopClock(performance.now()); loader.dataset.sector = 'yellow'; label.textContent = 'Still loading after'; }
       lpods.forEach(p => p.classList.remove('on'));
       loader.classList.add('is-out');
       setTimeout(() => {

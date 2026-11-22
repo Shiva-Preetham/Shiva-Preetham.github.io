@@ -686,7 +686,10 @@ html:not(.js) .pole__img, html:not(.js) .pole__tag { filter: none; transform: no
 .loader__time { margin: 34px 0 0; font: italic 700 clamp(44px, 8vw, 76px)/1 var(--f1); color: var(--ink); font-variant-numeric: tabular-nums; }
 .loader__time b { font-weight: 700; transition: color .3s; }
 .loader__label { display: block; margin-bottom: 10px; font: 600 12px/1 var(--f1); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
-.loader.is-out .loader__time b { color: var(--purple); }
+/* F1 sector colours for the load time */
+.loader[data-sector="purple"] .loader__time b { color: var(--purple); }
+.loader[data-sector="green"] .loader__time b { color: #2BD46A; }
+.loader[data-sector="yellow"] .loader__time b { color: #FFD12E; }
 .loader__bar { width: min(280px, 70vw); height: 2px; margin-top: 24px; background: var(--line); overflow: hidden; }
 .loader__bar i { display: block; height: 100%; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .25s linear; }
 .loader__name { margin: 18px 0 0; font: italic 700 13px/1 var(--f1); letter-spacing: .32em; text-transform: uppercase; color: var(--muted); }
@@ -698,3 +701,8 @@ html:not(.js) .pole__img, html:not(.js) .pole__tag { filter: none; transform: no
 
 /* live timing ends on its last row */
 .tower__rows li:last-child { border-bottom: 0; }
+
+/* Pit wall: the 2026 note */
+.pitwall__body .pitwall__now { margin: 0 0 18px; padding-left: 14px; border-left: 2px solid var(--gold); color: var(--ink-2); }
+.pitwall__now span { display: block; margin-bottom: 4px; font: italic 700 13px/1 var(--f1); letter-spacing: .12em; color: var(--gold); }
+.pitwall__tele div:nth-child(4) dt { color: var(--gold); }
