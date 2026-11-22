@@ -19,6 +19,7 @@ projects, a circuit map that tracks your scroll, and Max Verstappen's number 3 R
 
 Preview locally: `python -m http.server 8000`, then open http://localhost:8000.
 Push to `main` and GitHub Pages redeploys within a minute or two.
+After changing `styles.css` or `main.js`, bump the `?v=` tag on their links in `index.html` so browsers fetch the new file.
 
 ## Credits
 
